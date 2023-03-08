@@ -28,7 +28,7 @@ Future<List<Recipe>> getLikedRecipe() async {
 Future<bool> isRecipeLiked(Recipe recipe) async {
   var allLikedRecipes = await getLikedRecipe();
   var likedRecipeExists =
-      allLikedRecipes.any((element) => recipe.name == element.name);
+      allLikedRecipes.any((element) => recipe.id == element.id);
   return likedRecipeExists;
 }
 
@@ -52,7 +52,7 @@ Future<bool> addLikedRecipe(Recipe recipe) async {
 Future<bool> removeLikedRecipe(Recipe recipe) async {
   var likedRecipe = await getLikedRecipe();
 
-  likedRecipe.removeWhere((element) => element.name == recipe.name);
+  likedRecipe.removeWhere((element) => element.id == recipe.id);
 
   var likedRecipeAsString = jsonEncode(likedRecipe);
   var fullFilePath = await getFullFilePath();
