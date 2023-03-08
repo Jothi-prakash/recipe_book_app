@@ -1,22 +1,16 @@
 class MultipleRecipe {
   MultipleRecipe({
-    required this.status,
-    required this.totalResults,
-    required this.recipes,
+     required this.recipes,
   });
 
-  final String? status;
-  final int? totalResults;
+ 
   final List<Recipe> recipes;
 
-  factory MultipleRecipe.fromJson(Map<String, dynamic> json) {
+  factory MultipleRecipe.fromJson(List<dynamic> json) {
+    
     return MultipleRecipe(
-      status: json["status"],
-      totalResults: json["totalResults"],
-      recipes: json["recipes"] == null
-          ? []
-          : List<Recipe>.from(
-              json["recipes"]!.map((x) => Recipe.fromJson(x))),
+      
+      recipes:json.map((x) => Recipe.fromJson(x)).toList(),
     );
   }
 }
