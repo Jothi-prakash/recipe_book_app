@@ -1,5 +1,27 @@
-class RandomRecipe {
-    RandomRecipe({
+class MultipleRecipe {
+  MultipleRecipe({
+    required this.status,
+    required this.totalResults,
+    required this.recipes,
+  });
+
+  final String? status;
+  final int? totalResults;
+  final List<Recipe> recipes;
+
+  factory MultipleRecipe.fromJson(Map<String, dynamic> json) {
+    return MultipleRecipe(
+      status: json["status"],
+      totalResults: json["totalResults"],
+      recipes: json["recipes"] == null
+          ? []
+          : List<Recipe>.from(
+              json["recipes"]!.map((x) => Recipe.fromJson(x))),
+    );
+  }
+}
+class Recipe {
+    Recipe({
         required this.id,
         required this.name,
         required this.tags,
@@ -23,12 +45,12 @@ class RandomRecipe {
     final List<Ingredient> ingredients;
     final List<String> steps;
     final int? servings;
-    final List<ServingSize> servingSizes;
+    final List<ServingSizeElement> servingSizes;
     final Map<String, double> nutrients;
     final String? image;
 
-    factory RandomRecipe.fromJson(Map<String, dynamic> json){ 
-        return RandomRecipe(
+    factory Recipe.fromJson(Map<String, dynamic> json){ 
+        return Recipe(
             id: json["id"],
             name: json["name"],
             tags: json["tags"] == null ? [] : List<String>.from(json["tags"]!.map((x) => x)),
@@ -38,7 +60,7 @@ class RandomRecipe {
             ingredients: json["ingredients"] == null ? [] : List<Ingredient>.from(json["ingredients"]!.map((x) => Ingredient.fromJson(x))),
             steps: json["steps"] == null ? [] : List<String>.from(json["steps"]!.map((x) => x)),
             servings: json["servings"],
-            servingSizes: json["servingSizes"] == null ? [] : List<ServingSize>.from(json["servingSizes"]!.map((x) => ServingSize.fromJson(x))),
+            servingSizes: json["servingSizes"] == null ? [] : List<ServingSizeElement>.from(json["servingSizes"]!.map((x) => ServingSizeElement.fromJson(x))),
             nutrients: Map.from(json["nutrients"]).map((k, v) => MapEntry<String, double>(k, v)),
             image: json["image"],
         );
@@ -53,19 +75,19 @@ class Ingredient {
     });
 
     final String? name;
-    final ServingSize? servingSize;
+    final IngredientServingSize? servingSize;
 
     factory Ingredient.fromJson(Map<String, dynamic> json){ 
         return Ingredient(
             name: json["name"],
-            servingSize: json["servingSize"] == null ? null : ServingSize.fromJson(json["servingSize"]),
+            servingSize: json["servingSize"] == null ? null : IngredientServingSize.fromJson(json["servingSize"]),
         );
     }
 
 }
 
-class ServingSize {
-    ServingSize({
+class IngredientServingSize {
+    IngredientServingSize({
         required this.units,
         required this.desc,
         required this.qty,
@@ -76,16 +98,46 @@ class ServingSize {
     final String? units;
     final String? desc;
     final double? qty;
-    final double? grams;
+    final int? grams;
     final double? scale;
 
-    factory ServingSize.fromJson(Map<String, dynamic> json){ 
-        return ServingSize(
+    factory IngredientServingSize.fromJson(Map<String, dynamic> json){ 
+        return IngredientServingSize(
             units: json["units"],
             desc: json["desc"],
             qty: json["qty"],
             grams: json["grams"],
             scale: json["scale"],
+        );
+    }
+
+}
+
+class ServingSizeElement {
+    ServingSizeElement({
+        required this.scale,
+        required this.qty,
+        required this.grams,
+        required this.units,
+        required this.originalWeight,
+        required this.originalWeightUnits,
+    });
+
+    final int? scale;
+    final int? qty;
+    final int? grams;
+    final String? units;
+    final int? originalWeight;
+    final String? originalWeightUnits;
+
+    factory ServingSizeElement.fromJson(Map<String, dynamic> json){ 
+        return ServingSizeElement(
+            scale: json["scale"],
+            qty: json["qty"],
+            grams: json["grams"],
+            units: json["units"],
+            originalWeight: json["originalWeight"],
+            originalWeightUnits: json["originalWeightUnits"],
         );
     }
 
