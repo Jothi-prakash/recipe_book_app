@@ -92,7 +92,7 @@ class IngredientServingSize {
     final String? units;
     final String? desc;
     final double? qty;
-    final int? grams;
+    final double? grams;
     final double? scale;
 
     factory IngredientServingSize.fromJson(Map<String, dynamic> json){ 
@@ -100,7 +100,7 @@ class IngredientServingSize {
             units: json["units"],
             desc: json["desc"],
             qty: json["qty"],
-            grams: json["grams"],
+            grams: double.tryParse( json["grams"].toString()),
             scale: json["scale"],
         );
     }
@@ -117,20 +117,20 @@ class ServingSizeElement {
         required this.originalWeightUnits,
     });
 
-    final int? scale;
-    final int? qty;
-    final int? grams;
+    final double? scale;
+    final double? qty;
+    final double? grams;
     final String? units;
-    final int? originalWeight;
+    final double? originalWeight;
     final String? originalWeightUnits;
 
     factory ServingSizeElement.fromJson(Map<String, dynamic> json){ 
         return ServingSizeElement(
-            scale: json["scale"],
-            qty: json["qty"],
-            grams: json["grams"],
+            scale: double.tryParse( json["scale"].toString()),
+            qty: double.tryParse(["qty"].toString()),
+            grams: double.tryParse(["grams"].toString()),
             units: json["units"],
-            originalWeight: json["originalWeight"],
+            originalWeight: double.tryParse(["originalWeight"].toString()),
             originalWeightUnits: json["originalWeightUnits"],
         );
     }
