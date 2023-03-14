@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book_app/views/home_page.dart';
+import 'package:recipe_book_app/home_page.dart';
 
 class RecipeBook extends StatelessWidget {
 const RecipeBook({ Key? key }) : super(key: key);
@@ -10,7 +10,7 @@ const RecipeBook({ Key? key }) : super(key: key);
       debugShowCheckedModeBanner: false,
       title: 'Recipe Book',
       theme: ThemeData(primarySwatch: Colors.indigo),
-      home:const  HomePage(),
+      home:const  HomeScreen(),
     );
   }
 }
